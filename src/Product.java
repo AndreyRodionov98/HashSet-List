@@ -1,5 +1,7 @@
+import java.lang.reflect.MalformedParameterizedTypeException;
 import java.net.ProxySelector;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -50,16 +52,16 @@ public class Product {
         this.bought = bought;
     }
 
-    public void addProductFoodBuscket(Set<Product> foodBusket){
-        if(!foodBusket.contains(this)){
-            foodBusket.add(this);
-          this.bought=true;
-        }else {
-            throw new UnsupportedOperationException("Продукт "+ this.name+" находится в карзине ");
-        }
+   // public void addProductFoodBuscket(Set<Product> foodBusket){
+     //   if(!foodBusket.contains(this)){
+       //     foodBusket.add(this);
+         // this.bought=true;
+        //}else {
+          //  throw new UnsupportedOperationException("Продукт "+ this.name+" находится в карзине ");
+        //}
+   // }
 
 
-    }
 
 
 

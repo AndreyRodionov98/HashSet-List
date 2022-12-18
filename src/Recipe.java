@@ -2,16 +2,16 @@ import java.util.*;
 
 public class Recipe {
 
-    private Set<Product> productSet;
+    private Map<Product, Integer> productSet;
     private int summProduct;
     private String name;
 
     public Recipe(String name) {
-        this.productSet = new HashSet<>();
+        this.productSet = new HashMap<>();
         this.name = name;
     }
 
-    public Set<Product> getProductSet() {
+    public Map<Product,Integer> getProductSet() {
         return productSet;
     }
 
@@ -23,11 +23,27 @@ public class Recipe {
         return name;
     }
 
-    public void addProductInRecipe(Product ...products) {
-        this.productSet.addAll(Arrays.asList(products));
-        for (Product product : this.productSet) {
-            this.summProduct += product.getCost();
+    public void addProductInRecipe(Product product) {
+        //productSet.addAll(Arrays.asList(products));
+        //for (Product product : productSet) {
+          //  summProduct += product.getCost();
+        if (product==null){
+            return;
         }
+        if (this.productSet.containsKey(product)){
+            Integer productCount=this.productSet.get(product);
+            this.productSet.put(product,++productCount);
+        }
+        else {
+            this.productSet.put(product,1);
+        }
+    }
+    public  double getTotalCostAllProducts(){
+        double summ=0.0;
+        for (Map.Entry<Product,Integer>product: productSet.entrySet()){
+            summ+=product.getKey().getCost()*product.getValue();
+        }
+        return summ;
     }
 
     public void addRecipeInSet(Set<Recipe> recipeSet) {
@@ -35,6 +51,19 @@ public class Recipe {
             recipeSet.add(this);
         } else {
             throw new UnsupportedOperationException("Рецепт " + this.name + " находится в множистве ");
+        }
+    }
+    public void checkProduct(String name){
+        boolean bought=false;
+        for (Map.Entry<Product,Integer>product:productSet.entrySet()){
+            if (product.getKey().getName().equals(name)){
+                System.out.println(name+" приобретен");
+                bought=true;
+                break;
+            }
+        }
+        if (!bought){
+            System.out.println(name+" Не приобретен");
         }
     }
 
